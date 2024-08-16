@@ -60,6 +60,13 @@ If you pass another variable (regardless of the recursive flag) it will treat it
 aiphpdocs dir -r /somewhere/else
 ```
 
+### Docker usage
+
+You can use the Docker image acseo/ai-phpdoc to use ai-phpdoc via docker
+
+```bash
+$ docker run -it -e OPENAI_KEY=sk-xxx -v /path/to/your/code:/code acseo/ai-phpdoc dir -r /code/src
+```
 ## License
 
 AI PHPDocs is licensed under the AGPL-3.0 license. See LICENSE for more information.
