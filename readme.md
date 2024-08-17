@@ -1,22 +1,6 @@
-<p align="center">
-    <img src="https://raw.githubusercontent.com/molbal/ai-phpdoc/main/art/code-example.png" width="800" alt="Code example">
-    <p align="center">
-        <a href="https://packagist.org/packages/molbal/ai-phpdoc"><img alt="Total Downloads" src="https://img.shields.io/packagist/dt/molbal/ai-phpdoc"></a>
-        <a href="https://packagist.org/packages/molbal/ai-phpdoc"><img alt="Latest Version" src="https://img.shields.io/packagist/v/molbal/ai-phpdoc"></a>
-        <a href="https://packagist.org/packages/molbal/ai-phpdoc"><img alt="License" src="https://img.shields.io/github/license/molbal/ai-phpdoc"></a>
-    </p>
-</p>
-
-------
-
-# <img src="https://raw.githubusercontent.com/molbal/ai-phpdoc/main/art/icon.png" width="40" alt="Cute icon. You like it!"> AI PHPDocs
-
+# AI PHPDocs
 
 AI PHPDocs is a tool that uses GPT-3 to automatically add missing PHPDoc comments to your PHP code.
-
-Demo video: https://youtu.be/bu-fkRyLQaI
-
-Example output: https://github.com/molbal/abyss-tracker/commit/e4013c7533aa7ca855176ddce9f3563a011cdc0f
 
 ## Prerequisites
 
@@ -26,15 +10,13 @@ This package uses the OpenAI API. Before using AI PHPDocs, you will need to have
 export OPENAI_KEY=...
 ```
 
-You can get an API key at https://beta.openai.com/account/api-keys 
-
 ## Installation
 
 To install AI PHPDocs, run the following command:
 
 
 ```shell
-composer global require molbal/ai-phpdoc
+composer global require acseo/ai-phpdoc
 ```
 
 ## Usage
