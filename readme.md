@@ -49,6 +49,52 @@ You can use the Docker image acseo/ai-phpdoc to use ai-phpdoc via docker
 ```bash
 $ docker run -it -e OPENAI_KEY=sk-xxx -v /path/to/your/code:/code acseo/ai-phpdoc dir -r /code/src
 ```
+
+
+## Example
+
+Original PHP File
+
+```php
+// file : example.php
+<?php
+
+class Calculator
+{
+    public function add(int $a, int $b) : int
+    {
+        return $a + $b;
+    }
+}
+```
+
+```bash
+$ export OPENAI_KEY=sk-...
+$ php bin/aiphpdocs file example.php 
+````
+
+Result 
+
+```php
+// file : example.php
+<?php
+
+class Calculator
+{
+    /**
+     * Adds two integers and returns the sum.
+     *
+     * @param int $a The first integer to be added.
+     * @param int $b The second integer to be added.
+     * @return int The sum of the two integers.
+    */
+    public function add(int $a, int $b) : int
+    {
+        return $a + $b;
+    }
+}
+```
+
 ## License
 
 AI PHPDocs is licensed under the AGPL-3.0 license. See LICENSE for more information.
