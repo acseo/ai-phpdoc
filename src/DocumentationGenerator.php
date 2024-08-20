@@ -8,10 +8,11 @@ class DocumentationGenerator
      * createDocBlock
      *
      * @param string $function The function to generate the doc block for
-     * 
+     *
      * @return string The generated doc block
      */
-    public static function createDocBlock(string $function): string {
+    public static function createDocBlock(string $function): string
+    {
         $key = getenv('OPENAI_KEY');
 
         $openai = \OpenAI::client($key);
@@ -33,8 +34,7 @@ class DocumentationGenerator
             }
 
             return $completion['choices'][0]['text'];
-        }
-        catch (\Throwable $e) {
+        } catch (\Throwable $e) {
             throw new \RuntimeException('An error occurred while trying to get the doc block: ' . $e->getMessage());
         }
     }

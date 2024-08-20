@@ -12,25 +12,39 @@ class ProcessFacade
 {
     /**
      * Process a file and generate PHPDoc blocks for functions without them
-     * 
+     *
      * @param mixed $filePath The path to the file to process
      * @param OutputInterface $output The output interface to write messages to
-     * 
+     *
      * @return int The status of the command (success or failure)
      */
     public function processFile(mixed $filePath, OutputInterface $output): int
     {
         $output->writeln('Processing file: '.$filePath);
         try {
-            $functions = (new FileParser)->getFunctionsFromFile($filePath);
+            $functions = (new FileParser())->getFunctionsFromFile($filePath);
             $errors = 0;
             $completions = 0;
             foreach ($functions as $function) {
+                $needToGenerate = false;
                 if (!$function['phpdoc']) {
-                    $output->writeln('Found function without docblock: ' . $function['name']);
+                    $output->writeln('<info>Found function without docblock: ' . $function['name']. '</info>');
+                    $needToGenerate = true;
+                } elseif (!FileParser::paramsAreTheSame($function['functionparams'], $function['phpdocparams'])) {
+                    $output->writeln('<info>Found outdated docblock for function : ' . $function['name']. '</info>');
+                    ;
+                    if ((new FileWriter())->eraseDocBlock($filePath, $function['phpdoc'])) {
+                        $output->writeln('<info>Docblock will be regenerated for function : ' . $function['name']. '</info>');
+                        $needToGenerate = true;
+                    } else {
+                        $output->writeln('<error>Could not erase docblock function ' . $function['name']. '</error>');
+                    }
+                }
+
+                if ($needToGenerate) {
                     try {
                         $docs = DocumentationGenerator::createDocBlock($function['body']);
-                        if ((new FileWriter)->writeDocBlock($filePath, $function['body'], $docs)) {
+                        if ((new FileWriter())->writeDocBlock($filePath, $function['body'], $docs)) {
                             $output->writeln('<info>Wrote docblock for ' . $function['name'] . '</info>');
                             $completions++;
                         } else {
@@ -86,12 +100,11 @@ class ProcessFacade
                 $success = $this->processFile($file->getPathname(), $output) == Command::SUCCESS ? Command::SUCCESS : Command::FAILURE;
             }
 
-            if ($file->isDir() && $recursive ) {
+            if ($file->isDir() && $recursive) {
                 $this->processDirectory($file->getPathname(), true, $output);
             }
         }
 
         return $success;
     }
-
 }

@@ -10,7 +10,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class ProcessFile extends Command
 {
-
     /**
      * Configures the current command.
      *
