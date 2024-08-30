@@ -1,13 +1,28 @@
 # AI PHPDocs
 
-AI PHPDocs is a tool that uses GPT-3 to automatically add missing PHPDoc comments to your PHP code.
+AI PHPDocs is a tool that uses LLM (OpenAI or any other OpenAI compatible API) to automatically add missing PHPDoc comments to your PHP code.
 
 ## Prerequisites
 
-This package uses the OpenAI API. Before using AI PHPDocs, you will need to have an OpenAI API key set as an environment variable. 
+If you want to user OpenAI, you will need to have an OpenAI API key set as an environment variable. 
 
 ```shell
 export OPENAI_KEY=...
+```
+
+If you want to use another API endpoint, for example Ollama, you need to export other environment variables.
+
+Example with [Ollama](https://ollama.com/) that runs locally
+
+```shell
+export BASE_URI=http://localhost:11434/v1
+export MODEL=mistral
+```
+
+You can choose the model with an environment variable. 
+
+```shell
+export MODEL=...
 ```
 
 ## Installation

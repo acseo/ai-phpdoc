@@ -14,13 +14,24 @@ class DocumentationGenerator
     public static function createDocBlock(string $function): string
     {
         $key = getenv('OPENAI_KEY');
+        $baseUri = getenv('BASE_URI');
+        $model = getenv('MODEL');
+
+        if (!$model) {
+            $model = 'gpt-3.5-turbo-instruct';
+        }
 
         $openai = \OpenAI::client($key);
-
+        if ($baseUri) {
+            $openai = \OpenAI::factory()
+                ->withApiKey($key)
+                ->withBaseUri($baseUri)
+                ->make();
+        }
         $prompt = "Read the following PHP function: " . $function . ". Write the PHPDoc block in English for the method named " . $function . ", remove any unnecessary code and comments, including if it's an empty constructor. Do not add any additional comments except for the required PHPDocs, unless you detect obvious errors.";
 
         $completion = $openai->completions()->create([
-            'model' => 'gpt-3.5-turbo-instruct',
+            'model' => $model,
             'prompt' => $prompt,
             'max_tokens' => 1024,
             'stop' => ['"""'],
